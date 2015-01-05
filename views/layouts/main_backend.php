@@ -295,7 +295,7 @@ mdm\admin\AdminAsset::register($this);
 						   <ul class="dropdown-menu extended logout">
 							   <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
 							   <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
-							   <li><a href="/admin/login/logout"><i class="icon-key"></i> Log Out</a></li>
+							   <li><a href="/site/logout"  data-method="post"><i class="icon-key"></i> Log Out</a></li>
 						   </ul>
 					   </li>
 					   <!-- END USER LOGIN DROPDOWN -->
