@@ -93,7 +93,7 @@ $config = [
         'allowActions' => [
             // 'admin/*', // add or remove allowed actions to this list
             'site/index',
-            'site/login',
+            'site/about',
             'site/login',
             'site/contact'
         ]
