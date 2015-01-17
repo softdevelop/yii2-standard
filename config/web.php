@@ -91,8 +91,10 @@ $config = [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            'admin/*', // add or remove allowed actions to this list
-            'site/index'
+            // 'admin/*', // add or remove allowed actions to this list
+            'site/index',
+            'site/login',
+            'site/contact'
         ]
     ],
     'params' => $params,
