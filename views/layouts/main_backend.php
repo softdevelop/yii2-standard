@@ -29,18 +29,18 @@ mdm\admin\AdminAsset::register($this);
    <?php
 		$this->registerCssFile("http://instagrambotlc.com/backend/assets/bootstrap/css/bootstrap.min.css");
    ?>
-   <link href="/backend/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="/web/backend/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
    
-   <link href="/backend/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-   <link href="/backend/assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
-   <link href="/backend/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-   <link href="/backend/css/style.css" rel="stylesheet" />
-   <link href="/backend/css/style-responsive.css" rel="stylesheet" />
-   <link href="/backend/css/style-default.css" rel="stylesheet" id="style_color" />
-   <link href="/backend/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-   <link href="/backend/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+   <link href="/web/backend/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+   <link href="/web/backend/assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
+   <link href="/web/backend/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+   <link href="/web/backend/css/style.css" rel="stylesheet" />
+   <link href="/web/backend/css/style-responsive.css" rel="stylesheet" />
+   <link href="/web/backend/css/style-default.css" rel="stylesheet" id="style_color" />
+   <link href="/web/backend/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+   <link href="/web/backend/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
 
-   <link href="/backend/css/custom.css" rel="stylesheet" />
+   <link href="/web/backend/css/custom.css" rel="stylesheet" />
 
 
 </head>
@@ -59,7 +59,7 @@ mdm\admin\AdminAsset::register($this);
 			   <!--END SIDEBAR TOGGLE-->
 			   <!-- BEGIN LOGO -->
 			   <a class="brand" href="index-2.html">
-				   <img src="/backend/img/logo.png" alt="Metro Lab" />
+				   <img src="/web/backend/img/logo.png" alt="Metro Lab" />
 			   </a>
 			   <!-- END LOGO -->
 			   <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -156,7 +156,7 @@ mdm\admin\AdminAsset::register($this);
 							   </li>
 							   <li>
 								   <a href="#">
-									   <span class="photo"><img src="/backend/img/avatar-mini.png" alt="avatar" /></span>
+									   <span class="photo"><img src="/web/backend/img/avatar-mini.png" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jonathan Smith</span>
 									<span class="time">Just now</span>
@@ -168,7 +168,7 @@ mdm\admin\AdminAsset::register($this);
 							   </li>
 							   <li>
 								   <a href="#">
-									   <span class="photo"><img src="/backend/img/avatar-mini.png" alt="avatar" /></span>
+									   <span class="photo"><img src="/web/backend/img/avatar-mini.png" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jhon Doe</span>
 									<span class="time">10 mins</span>
@@ -180,7 +180,7 @@ mdm\admin\AdminAsset::register($this);
 							   </li>
 							   <li>
 								   <a href="#">
-									   <span class="photo"><img src="/backend/img/avatar-mini.png" alt="avatar" /></span>
+									   <span class="photo"><img src="/web/backend/img/avatar-mini.png" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jason Stathum</span>
 									<span class="time">3 hrs</span>
@@ -192,7 +192,7 @@ mdm\admin\AdminAsset::register($this);
 							   </li>
 							   <li>
 								   <a href="#">
-									   <span class="photo"><img src="/backend/img/avatar-mini.png" alt="avatar" /></span>
+									   <span class="photo"><img src="/web/backend/img/avatar-mini.png" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jondi Rose</span>
 									<span class="time">Just now</span>
@@ -282,7 +282,7 @@ mdm\admin\AdminAsset::register($this);
 					   <!-- BEGIN USER LOGIN DROPDOWN -->
 					   <li class="dropdown">
 						   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							   <img src="/backend/img/avatar1_small.jpg" alt="">
+							   <img src="/web/backend/img/avatar1_small.jpg" alt="">
 							   <span class="username">
 									<?php 
 										if (!\Yii::$app->user->isGuest) {
@@ -405,12 +405,12 @@ mdm\admin\AdminAsset::register($this);
 
    <!-- BEGIN JAVASCRIPTS -->
    <!-- Load javascripts at bottom, this will reduce page load time -->
-   <script src="/backend/js/jquery-1.8.3.min.js"></script>
-   <script src="/backend/js/jquery.nicescroll.js" type="text/javascript"></script>
-   <script type="text/javascript" src="/backend/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>
-   <script type="text/javascript" src="/backend/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-   <script src="/backend/assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>
-   <script src="/backend/assets/bootstrap/js/bootstrap.min.js"></script>
+   <script src="/web/backend/js/jquery-1.8.3.min.js"></script>
+   <script src="/web/backend/js/jquery.nicescroll.js" type="text/javascript"></script>
+   <script type="text/javascript" src="/web/backend/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>
+   <script type="text/javascript" src="/web/backend/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+   <script src="/web/backend/assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>
+   <script src="/web/backend/assets/bootstrap/js/bootstrap.min.js"></script>
 
    <!-- ie8 fixes -->
    <!--[if lt IE 9]>
@@ -418,12 +418,12 @@ mdm\admin\AdminAsset::register($this);
    <script src="js/respond.js"></script>
    <![endif]-->
 
-   <script src="/backend/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js" type="text/javascript"></script>
-   <script src="/backend/js/jquery.sparkline.js" type="text/javascript"></script>
-   <script src="/backend/assets/chart-master/Chart.js"></script>
-   <script src="/backend/js/jquery.scrollTo.min.js"></script>
+   <script src="/web/backend/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js" type="text/javascript"></script>
+   <script src="/web/backend/js/jquery.sparkline.js" type="text/javascript"></script>
+   <script src="/web/backend/assets/chart-master/Chart.js"></script>
+   <script src="/web/backend/js/jquery.scrollTo.min.js"></script>
    <!--common script for all pages-->
-   <script src="/backend/js/common-scripts.js"></script>
+   <script src="/web/backend/js/common-scripts.js"></script>
 
    <!-- END JAVASCRIPTS -->   
    <?php $this->endBody() ?>
