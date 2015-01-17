@@ -94,6 +94,7 @@ $config = [
             // 'admin/*', // add or remove allowed actions to this list
             'site/index',
             'site/login',
+            'site/login',
             'site/contact'
         ]
     ],
