@@ -2,6 +2,7 @@ Yii 2 Basic Application Template
 ================================
 
 * Install 
+-------------
 -  run composer update
 - import db in db folder
 
