@@ -68,12 +68,12 @@ $config = [
     ],
     'modules' => [
         'admin' => [
-            'class' => 'mdm\admin\Module',
+            'class' => 'app\modules\admin\Module',
             'layout' => '@app/views/layouts/main_backend', // avaliable value 'left-menu', 'right-menu' and 'top-menu'
             // 'layout' => 'left-menu', // avaliable value 'left-menu', 'right-menu' and 'top-menu'
             'controllerMap' => [
                  'assignment' => [
-                    'class'         => 'mdm\admin\controllers\AssignmentController',
+                    'class'         => 'app\modules\admin\controllers\AssignmentController',
                     'userClassName' => 'app\models\User',
                     'idField'       => 'id'
                 ]
@@ -86,16 +86,27 @@ $config = [
                     'label' => 'Route'
                 ], // disable menu
             ],
+        ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+            // enter optional module parameters below - only if you need to  
+            // use your own export download action or custom translation 
+            // message source
+            // 'downloadAction' => 'gridview/export/download',
+            // 'i18n' => []
         ]
     ],
     'as access' => [
-        'class' => 'mdm\admin\components\AccessControl',
+        'class' => 'app\modules\admin\components\AccessControl',
         'allowActions' => [
-            // 'admin/*', // add or remove allowed actions to this list
             'site/index',
+            'site/error',
             'site/about',
             'site/login',
-            'site/contact'
+            'site/contact',
+            'admin/auth/login',
+            'gii/*',
+            'debug/*'
         ]
     ],
     'params' => $params,

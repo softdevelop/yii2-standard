@@ -3,21 +3,64 @@
 namespace app\models;
 
 use Yii;
-use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
-class User extends ActiveRecord implements \yii\web\IdentityInterface
+/**
+ * This is the model class for table "users".
+ *
+ * @property integer $id
+ * @property string $username
+ * @property string $lastname
+ * @property string $firstname
+ * @property string $email
+ * @property string $password
+ * @property string $token
+ * @property string $auth_key
+ * @property integer $active
+ * @property string $created_at
+ * @property string $updated_at
+ */
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    /*public $id;
-    public $username;
-    public $email;
-    public $password;
-    public $authKey;
-    public $accessToken;*/
-    //public $password_repeat;
 
-    public static function tableName() 
-    { 
-        return 'user'; 
+    public $fullname;
+    public $repassword;
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'users';
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class'              => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value'              => new Expression('NOW()'),
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'email', 'password'], 'required'],
+            ['repassword', 'compare', 'compareAttribute' => 'password'],
+            [['email'], 'email'],
+            [['email'], 'unique'],
+            [['active'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['username', 'lastname', 'firstname', 'email', 'password', 'token', 'auth_key'], 'string', 'max' => 255]
+        ];
     }
 
     /**
@@ -26,43 +69,61 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'email' => 'Email',
-            'password_repeat' => 'Re-type Password',
+            'id'         => 'ID',
+            'username'   => 'Username',
+            'lastname'   => 'Lastname',
+            'firstname'  => 'Firstname',
+            'email'      => 'Email',
+            'password'   => 'Password',
+            'token'      => 'Token',
+            'auth_key'   => 'Auth Key',
+            'active'     => 'Active',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
+
     /**
-    * Hash password before Save
-    */
-    public function beforeSave($insert)
+     * set something before save db
+     * @param  mixed $insert
+     * @return mixed
+     */
+    public function beforeSave($insert) 
     {
-        if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
-                $this->authKey = Yii::$app->getSecurity()->generateRandomString();
-            }
-            if(isset($this->password)) {
-                $this->setPassword($this->password);
-            }
-            return true;
-        } 
-        return false;
+        // encode password
+        $this->setPassword($this->password);
+        // making token
+        $this->setToken();
+        // set auth_key 
+        $this->setAuthKey();
+
+        // save avatar
+        $image = UploadedFile::getInstance($this, 'avatar');
+        if (isset($image))
+        {
+            $ext = end((explode(".", $image->name)));
+            // generate a unique file name
+            $this->avatar = Yii::$app->security->generateRandomString().".{$ext}";
+            // the path to save file, you can set an uploadPath
+            // in Yii::$app->params (as used in example below)
+            $path = Yii::$app->params['uploadAvatarPath'] . $this->avatar;
+            $image->saveAs($path);
+        }
+        // in the editing case, if user doesn't change avatar, then set it with old avatar
+        else if (!empty($this->oldAttributes) && !empty($this->oldAttributes['avatar']))
+        {
+            $this->avatar = $this->oldAttributes['avatar'];
+        }
+
+        return parent::beforeSave($insert);
     }
 
-    public function rules(){
-        return [
-            ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'unique'],
-            [['email'], 'required'],
-            ['email', 'email'],
-
-            ['password', 'string', 'length' => [6, 128]],
-            //[['password'], 'required', 'on' => 'register'],
-
-            //['password_repeat','safe'],
-            //['password_repeat', 'compare', 'compareAttribute' => 'password']
-        ];
+    public function afterFind()
+    {
+        $this->repassword = $this->password;
+        $this->fullname = $this->getFullName();
+        return parent::afterFind();
     }
-
     /**
      * @inheritdoc
      */
@@ -76,7 +137,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return static::findOne(['access_token' => $token]);
+        return static::findOne(['token' => $token]);
     }
 
     /**
@@ -92,15 +153,15 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
      * @inheritdoc
      */
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($auth_key)
     {
-        return $this->authKey === $authKey;
+        return $this->auth_key === $auth_key;
     }
 
     /**
@@ -114,12 +175,53 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
+     * generates token 
+     */
+    public function setToken()
+    {
+        $this->token = Yii::$app->security->generateRandomString();
+    }
+
+    /**
+     * generates auth_key
+     */
+    public function setAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
+    /**
      * Validates password
      *
      * @param  string  $password password to validate
      * @return boolean if password provided is valid for current user
      */
-    public function validatePassword($password){
+    public function validatePassword($password) 
+    {
         return \Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
+
+    /**
+     * set full name of particular user
+     * @param  integer $id
+     * @return string
+     */
+    public function getFullName() 
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+
+    public static function getRealName() 
+    {
+        $user = self::findOne(Yii::$app->user->id);
+        return $user->firstname . ' ' . $user->lastname;
+    }
+
+    public static function getAvatar()
+    {
+        $user = self::findOne(Yii::$app->user->id);
+        return $user->avatar;
+    }
+
 }
